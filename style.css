@@ -1,0 +1,182 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #a8e063 0%, #56c596 35%, #38a3a5 70%, #22577a 100%);
+    background-size: 300% 300%;
+    animation: fondoMovido 12s ease infinite;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    text-align: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+@keyframes fondoMovido {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.contenedor {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.titulo {
+    color: #fff;
+    font-size: 2.2rem;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.25);
+    margin-bottom: 20px;
+    animation: rebote 2s ease-in-out infinite;
+}
+
+@keyframes rebote {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.texto-verde,
+.texto-naranjo {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    padding: 16px 20px;
+    font-size: 1.15rem;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+.texto-verde {
+    color: #2e8b57;
+    border-left: 8px solid #2e8b57;
+}
+
+.texto-naranjo {
+    color: #e07b00;
+    border-left: 8px solid #e07b00;
+}
+
+/* Contenedor principal de la rama y el panda */
+.escenario {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+/* Nubes decorativas */
+.nube {
+    position: absolute;
+    top: 15px;
+    font-size: 2rem;
+    opacity: 0.85;
+    animation: flotarNube 18s linear infinite;
+}
+.nube1 { top: 10px; animation-duration: 20s; }
+.nube2 { top: 45px; font-size: 1.4rem; animation-duration: 26s; animation-delay: -6s; }
+.nube3 { top: 25px; font-size: 1.7rem; animation-duration: 32s; animation-delay: -14s; }
+
+@keyframes flotarNube {
+    0% { left: -10%; }
+    100% { left: 110%; }
+}
+
+/* Diseño de la rama */
+.rama {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    height: 14px;
+    background: linear-gradient(#7a5230, #5C4033);
+    border-radius: 7px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.hoja {
+    position: absolute;
+    bottom: 18px;
+    font-size: 1.8rem;
+    animation: balanceo 3s ease-in-out infinite;
+}
+.hoja-izq { left: 2%; }
+.hoja-der { right: 2%; animation-delay: 1.2s; }
+
+@keyframes balanceo {
+    0%, 100% { transform: rotate(-8deg); }
+    50% { transform: rotate(8deg); }
+}
+
+/* Movimiento horizontal (avanzar) — arranca visible desde el primer fotograma */
+.panda-contenedor {
+    position: absolute;
+    bottom: 30px;
+    left: -10%;
+    animation: avanzar 10s linear infinite;
+}
+
+/* Movimiento vertical y rotación (pasos) */
+.panda-caminando {
+    width: 120px;
+    height: auto;
+    cursor: pointer;
+    animation: pasos 0.4s ease-in-out infinite alternate;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 6px 4px rgba(0,0,0,0.25));
+}
+
+@keyframes avanzar {
+    0% { left: -10%; }
+    100% { left: 110%; }
+}
+
+@keyframes pasos {
+    0% { transform: translateY(0px) rotate(-3deg); }
+    100% { transform: translateY(-8px) rotate(3deg); }
+}
+
+.pie {
+    color: #fff;
+    margin-top: 16px;
+    font-size: 0.95rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Hojas cayendo de fondo, generadas por JS */
+.hojas-flotantes {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.hoja-cayendo {
+    position: absolute;
+    top: -40px;
+    font-size: 1.5rem;
+    opacity: 0.8;
+    animation-name: caer;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes caer {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(360deg); }
+}
+
+@media (max-width: 480px) {
+    .titulo { font-size: 1.6rem; }
+    .texto-verde, .texto-naranjo { font-size: 1rem; }
+    .panda-caminando { width: 90px; }
+}

@@ -1,0 +1,71 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4fdf4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    text-align: center;
+}
+
+.contenedor {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+}
+
+.texto-verde {
+    color: #2e8b57;
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-bottom: 50px;
+}
+
+/* Contenedor principal de la rama y el panda */
+.escenario {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden; /* Oculta al panda cuando sale del borde */
+}
+
+/* Diseño de la rama */
+.rama {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    height: 12px;
+    background-color: #5C4033; /* Color café */
+    border-radius: 6px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Movimiento horizontal (avanzar) */
+.panda-contenedor {
+    position: absolute;
+    bottom: 30px; /* Posicionado justo sobre la rama */
+    left: -150px; /* Inicia fuera de la pantalla a la izquierda */
+    animation: avanzar 12s linear infinite;
+}
+
+/* Movimiento vertical y rotación (pasos) */
+.panda-caminando {
+    width: 120px;
+    height: auto;
+    cursor: pointer;
+    animation: pasos 0.4s ease-in-out infinite alternate;
+    transition: transform 0.3s ease;
+}
+
+@keyframes avanzar {
+    0% { left: -150px; }
+    100% { left: 100%; }
+}
+
+@keyframes pasos {
+    0% { transform: translateY(0px) rotate(-3deg); }
+    100% { transform: translateY(-8px) rotate(3deg); }
+}

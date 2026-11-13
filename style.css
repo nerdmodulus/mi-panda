@@ -1,0 +1,229 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #a8e063 0%, #56c596 35%, #38a3a5 70%, #22577a 100%);
+    background-size: 300% 300%;
+    animation: fondoMovido 12s ease infinite;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    text-align: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+@keyframes fondoMovido {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.contenedor {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.titulo {
+    color: #fff;
+    font-size: 2.2rem;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.25);
+    margin-bottom: 20px;
+    animation: rebote 2s ease-in-out infinite;
+}
+
+@keyframes rebote {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.texto-verde,
+.texto-naranjo {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    padding: 16px 20px;
+    font-size: 1.15rem;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+.texto-verde {
+    color: #2e8b57;
+    border-left: 8px solid #2e8b57;
+}
+
+.texto-naranjo {
+    color: #e07b00;
+    border-left: 8px solid #e07b00;
+}
+
+/* ===== Escenario ===== */
+.escenario {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+/* Nubes decorativas */
+.nube {
+    position: absolute;
+    top: 15px;
+    font-size: 2rem;
+    opacity: 0.85;
+    animation: flotarNube 18s linear infinite;
+    z-index: 1;
+}
+.nube1 { top: 10px; animation-duration: 20s; }
+.nube2 { top: 45px; font-size: 1.4rem; animation-duration: 26s; animation-delay: -6s; }
+.nube3 { top: 25px; font-size: 1.7rem; animation-duration: 32s; animation-delay: -14s; }
+
+@keyframes flotarNube {
+    0% { left: -10%; }
+    100% { left: 110%; }
+}
+
+/* Rama ilustrada (imagen real, ya no CSS puro) */
+.rama-img {
+    position: absolute;
+    bottom: 10px;
+    left: 90px;
+    width: 620px;
+    max-width: 85%;
+    z-index: 2;
+    filter: drop-shadow(0 6px 4px rgba(0,0,0,0.2));
+}
+
+/* ===== El panda: cuerpo + 2 patas que se arman por encima ===== */
+
+/* Contenedor que recorre el escenario: camina por el "suelo" y luego trepa a la rama */
+.panda-contenedor {
+    position: absolute;
+    left: -160px;
+    bottom: 10px;
+    z-index: 3;
+    animation: recorrido 9s linear infinite;
+}
+
+@keyframes recorrido {
+    0%    { left: -160px; bottom: 10px; }
+    42%   { left: 300px;  bottom: 10px; }   /* camina por el suelo */
+    55%   { left: 390px;  bottom: 55px; }   /* comienza a trepar */
+    68%   { left: 430px;  bottom: 100px; }  /* llega a la rama */
+    97%   { left: 430px;  bottom: 100px; }  /* se queda descansando arriba */
+    99.9% { left: 430px;  bottom: 100px; }
+    100%  { left: -160px; bottom: 10px; }   /* vuelve a empezar (fuera de pantalla) */
+}
+
+.panda-rig {
+    position: relative;
+    width: 170px;
+    height: 144px;
+    cursor: pointer;
+}
+
+.cuerpo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 170px;
+    height: 97px;
+    z-index: 3;
+    transition: transform 0.3s ease;
+}
+
+/* Patas: dos piezas reales recortadas (recta = apoyada, doblada = en movimiento) */
+.pata {
+    position: absolute;
+    width: 22px;
+    height: 58px;
+    z-index: 2;
+}
+
+.pata-doblada {
+    width: 34px;
+}
+
+.pata-trasera.pata-recta   { left: 88px; top: 86px; }
+.pata-trasera.pata-doblada { left: 82px; top: 80px; }
+
+.pata-delantera.pata-recta   { left: 127px; top: 84px; }
+.pata-delantera.pata-doblada {
+    left: 121px;
+    top: 78px;
+    display: inline-block;
+}
+.pata-delantera.pata-doblada img {
+    width: 34px;
+    height: 58px;
+    display: block;
+}
+.espejo { transform: scaleX(-1); }
+
+/* Animación de "pasitos": cada pata alterna entre apoyada y doblada */
+.pata-trasera.pata-recta   { animation: pataApoyada 0.8s steps(1) infinite; }
+.pata-trasera.pata-doblada { animation: pataLevantada 0.8s steps(1) infinite; }
+
+.pata-delantera.pata-recta   { animation: pataApoyada 0.8s steps(1) infinite reverse; }
+.pata-delantera.pata-doblada { animation: pataLevantadaEspejo 0.8s steps(1) infinite reverse; }
+
+@keyframes pataApoyada {
+    0%, 49%  { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+@keyframes pataLevantada {
+    0%, 49%  { opacity: 0; }
+    50%, 100% { opacity: 1; }
+}
+
+@keyframes pataLevantadaEspejo {
+    0%, 49%  { opacity: 0; }
+    50%, 100% { opacity: 1; }
+}
+
+.pie {
+    color: #fff;
+    margin-top: 16px;
+    font-size: 0.95rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Hojas cayendo de fondo, generadas por JS */
+.hojas-flotantes {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.hoja-cayendo {
+    position: absolute;
+    top: -40px;
+    font-size: 1.5rem;
+    opacity: 0.8;
+    animation-name: caer;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes caer {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(360deg); }
+}
+
+@media (max-width: 480px) {
+    .titulo { font-size: 1.6rem; }
+    .texto-verde, .texto-naranjo { font-size: 1rem; }
+    .escenario { height: 220px; }
+    .rama-img { left: 30px; width: 400px; bottom: 6px; }
+}
